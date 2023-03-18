@@ -7,21 +7,9 @@ import {useCartStore} from "@/stores/CartStore";
 const productStore = useProductSore();
 const cartStore = useCartStore();
 
-
 // Import ProductStore action
 productStore.fill();
-// Define AddToCart method
-const addToCart = (count, product) => {
-  count = parseInt(count)
-  // Create only one mutation each time the same product is added to the cart
-  cartStore.$patch(state => {
-    for (let i = 0; i < count; i++) {
-      // Access items on the state instead of directly on the cartStore
-      state.items.push(product);
-    }
-  })
 
-}
 </script>
 
 <template>
@@ -32,7 +20,7 @@ const addToCart = (count, product) => {
           v-for="product in productStore.products"
           :key="product.name"
           :product="product"
-          @addToCart="addToCart($event, product)"
+          @addToCart="cartStore.addItemsToCart($event, product)"
       />
     </ul>
   </div>
