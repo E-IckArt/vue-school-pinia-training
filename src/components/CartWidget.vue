@@ -29,11 +29,11 @@ const active = ref(false);
           />
         </ul>
         <div class="flex justify-end text-2xl mb-5">
-          Total: <strong>$ {{ cartStore.totalPrice }}</strong>
+          Total: <strong>${{ cartStore.totalPrice }}</strong>
         </div>
         <div class="flex justify-end">
           <AppButton class="secondary mr-2" @click="cartStore.$reset()">Clear Cart</AppButton>
-          <AppButton class="primary">Checkout</AppButton>
+          <AppButton class="primary" @click="cartStore.checkout()">Checkout</AppButton>
         </div>
       </div>
       <!-- Uncomment and use condition to show when cart is empty -->
