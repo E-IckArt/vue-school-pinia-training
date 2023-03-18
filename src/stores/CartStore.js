@@ -20,17 +20,27 @@ export const useCartStore = defineStore("CartStore", {
         clearItem(itemName) {
             this.items = this.items.filter(item => item.name !== itemName)
         },
+        setItemCount(item, count) {
+            this.clearItem(item.name);
+            this.addItemsToCart(count, item);
+        },
     },
     getters: {
         count: (state) => state.items.length,
         isEmpty: (state) => state.count === 0,
         // Use groupBy method of lodash library to group item by name
-        grouped: (state) => groupBy(state.items, item => item.name),
+        grouped: (state) => {
+            const grouped = groupBy(state.items, item => item.name);
+            const sorted = Object.keys(grouped).sort();
+            let inOrder = {};
+            sorted.forEach((key) => (inOrder[key] = grouped[key]));
+            return inOrder;
+        },
         groupCount: (state) => (name) => state.grouped[name].length,
         totalPrice: (state) => {
             let acc = 0;
             for (const item of state.items) {
-                acc += item.price
+                acc += item.price;
             }
             return acc;
         }
