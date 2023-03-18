@@ -2,13 +2,11 @@
 import TheHeader from "@/components/TheHeader.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import {useProductSore} from "@/stores/ProductStore";
-import {storeToRefs} from "pinia";
 
-/*
-Destructure products out of the ProductStore.
-Usefull when only using state from the store but not calling any actions.
-*/
-const {products} = storeToRefs(useProductSore());
+const productStore = useProductSore();
+
+// Import ProductStore action
+productStore.fill();
 </script>
 
 <template>
@@ -16,9 +14,9 @@ const {products} = storeToRefs(useProductSore());
     <TheHeader />
     <ul class="sm:flex flex-wrap lg:flex-nowrap gap-5">
       <ProductCard
-        v-for="product in products"
-        :key="product.name"
-        :product="product"
+          v-for="product in productStore.products"
+          :key="product.name"
+          :product="product"
       />
     </ul>
   </div>

@@ -1,15 +1,21 @@
 import {defineStore} from "pinia";
-import products from "@/data/products.json";
 
 export const useProductSore = defineStore("ProductStore", {
-    //state
     state: () => {
         return {
-            products,
+            products: []
+        }
+    },
+
+    actions: {
+        async fill() {
+            // Getting production via dynamic import
+            this.products = (await import("@/data/products.json")).default;
+
+            // Example for getting data from an API :
+            // this.products = (await axios.get('endpoint')).data;
         }
     }
-
-    //actions
 
     //getters
 })
