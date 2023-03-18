@@ -16,7 +16,10 @@ export const useCartStore = defineStore("CartStore", {
                 // Example: in case of several pineapples, only one of them changes.
                 this.items.push({...item});
             }
-        }
+        },
+        clearItem(itemName) {
+            this.items = this.items.filter(item => item.name !== itemName)
+        },
     },
     getters: {
         count: (state) => state.items.length,
