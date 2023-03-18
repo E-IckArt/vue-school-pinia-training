@@ -24,5 +24,12 @@ export const useCartStore = defineStore("CartStore", {
         // Use groupBy method of lodash library to group item by name
         grouped: (state) => groupBy(state.items, item => item.name),
         groupCount: (state) => (name) => state.grouped[name].length,
+        totalPrice: (state) => {
+            let acc = 0;
+            for (const item of state.items) {
+                acc += item.price
+            }
+            return acc;
+        }
     },
 });
