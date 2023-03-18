@@ -1,7 +1,14 @@
 <script setup>
 import TheHeader from "@/components/TheHeader.vue";
 import ProductCard from "@/components/ProductCard.vue";
-import products from "@/data/products.json";
+import {useProductSore} from "@/stores/ProductStore";
+import {storeToRefs} from "pinia";
+
+/*
+Destructure products out of the ProductStore.
+Usefull when only using state from the store but not calling any actions.
+*/
+const {products} = storeToRefs(useProductSore());
 </script>
 
 <template>
