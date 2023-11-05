@@ -1,8 +1,10 @@
-import {defineStore} from "pinia";
+import {defineStore, acceptHMRUpdate} from "pinia";
+
 import {groupBy} from "lodash";
 import {useAuthUserStore} from "@/stores/AuthUserStore";
 
 export const useCartStore = defineStore("CartStore", {
+    historyEnabled: true,
     state: () => {
         return {
             items: []
@@ -10,7 +12,7 @@ export const useCartStore = defineStore("CartStore", {
     },
     actions: {
         addItemsToCart(count, item) {
-            count = parseInt(count)
+            count = parseInt(count);
             for (let i = 0; i < count; i++) {
                 // Access a copy of each item on the cartStore.
                 // Spread operator allows you to modify the properties of an item, without modifying those of other items of the same type
@@ -51,3 +53,7 @@ export const useCartStore = defineStore("CartStore", {
         }
     },
 });
+
+if (import.meta.hot) {
+    import.meta.hot.accept(acceptHMRUpdate(useCartStore, import.meta.hot));
+}

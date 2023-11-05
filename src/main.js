@@ -11,7 +11,12 @@ import AppButton from "./components/AppButton.vue";
 import AppCountInput from "./components/AppCountInput.vue";
 import AppModalOverlay from "./components/AppModalOverlay.vue";
 
+// Import Pinia Plugin for undo/redo functions.
+import {PiniaHistoryPlugin} from "./plugins/PiniaHistoryPlugin.js"
+
 const pinia = createPinia()
+pinia.use(PiniaHistoryPlugin)
+
 const app = createApp(App)
 
 // Init App
