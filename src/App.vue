@@ -7,9 +7,19 @@ import {useCartStore} from "@/stores/CartStore";
 const productStore = useProductSore();
 const cartStore = useCartStore();
 
+cartStore.$onAction(({name, store, args, after, onError}) => {
+  if (name === 'addItems') {
+    after(() => {
+      console.log(args[0]);
+    });
+    onError((error) => {
+      console.log("Error", error.message);
+    })
+  }
+});
+
 // Import ProductStore action
 productStore.fill();
-
 </script>
 
 <template>
